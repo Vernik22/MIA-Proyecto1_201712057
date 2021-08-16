@@ -243,7 +243,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 28 "Parser.y"
+#line 29 "Parser.y"
 
 char TEXT[256];
 class imkdisk *mdisk;
@@ -651,7 +651,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   167,   167,   170,   182
+       0,   168,   168,   171,   183
 };
 #endif
 
@@ -1555,13 +1555,13 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 167 "Parser.y"
+#line 168 "Parser.y"
                { }
 #line 1561 "parser.cpp"
     break;
 
   case 3:
-#line 171 "Parser.y"
+#line 172 "Parser.y"
 {
 
 
@@ -1572,7 +1572,7 @@ printf("estoy en lexpa primera produccion");
     break;
 
   case 4:
-#line 182 "Parser.y"
+#line 183 "Parser.y"
                          {int tam=atoi((yyvsp[0].TEXT)); imkdisk *disco=new imkdisk(); disco->size=tam;  (yyval.mdisk)=disco;}
 #line 1578 "parser.cpp"
     break;

@@ -25,6 +25,7 @@ return 0;
 %define parse.error verbose
 //%error-verbose
 %locations
+
 %union{
 char TEXT[256];
 class imkdisk *mdisk;
@@ -177,7 +178,7 @@ printf("estoy en lexpa primera produccion");
 
 
 ;
-
+//mkdisk
 COMANDOMKDISK:
-menos psize igual entero {int tam=atoi($4); imkdisk *disco=new imkdisk(); disco->size=tam;  $$=disco;}
+menos psize igual entero {int tam=atoi($4); imkdisk *disco=new imkdisk(); disco->size=tam;  $$=disco;} //los dobles $$ son como el return
 ;
