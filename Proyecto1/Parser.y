@@ -22,7 +22,8 @@ return 0;
 
 %defines "parser.h"
 %output "parser.cpp"
-%error-verbose
+%define parse.error verbose
+//%error-verbose
 %locations
 %union{
 char TEXT[256];
@@ -155,7 +156,6 @@ class imkdisk *mdisk;
 %token<TEXT> ruta;
 %token<TEXT> rutacualquiera;
 
-
 %type<mdisk> COMANDOMKDISK; // lista de instrucciones
 
 %left suma menos
@@ -171,7 +171,7 @@ LEXPA:  pmkdisk COMANDOMKDISK
 {
 
 
-$2->mostrardatos($2);//ejecuto el metodo "mostrardatos" del objeto retornado en COMANDOMKDISK
+$2->mostrarDatos($2);//ejecuto el metodo "mostrarDatos" del objeto retornado en COMANDOMKDISK
 printf("estoy en lexpa primera produccion");
 }
 
@@ -179,5 +179,5 @@ printf("estoy en lexpa primera produccion");
 ;
 
 COMANDOMKDISK:
-menos psize igual entero {int tam=atoi($4); obmkdisk *disco=new obmkdisk(); disco->size=tam;  $$=disco;}
+menos psize igual entero {int tam=atoi($4); imkdisk *disco=new imkdisk(); disco->size=tam;  $$=disco;}
 ;
