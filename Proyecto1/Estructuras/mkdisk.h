@@ -1,7 +1,8 @@
 #ifndef MKDISK_H
 #define MKDISK_H
-
+#include "estructuras.h"
 #include "string"
+#include <vector>
 using namespace std;
 
 class mkdisk{
@@ -15,7 +16,7 @@ public:
     string ajuste;
     void ejecutarComandoMkdisk(mkdisk *disco);
     void ejecutarComando(string comando);
-    void mostrarDatos(mkdisk *disco);
+    vector<string> split(string str, char pattern);
 };
 
 #endif // IMKDISK_H

@@ -6,49 +6,67 @@
 using namespace std;
 
 //estructura para cada comando y sus propiedades
-typedef struct 
+typedef struct
 {
     string Name;
     string val;
-}Propiedad;
+} Propiedad;
 
-typedef struct 
+typedef struct
 {
     string Name;
     Propiedad propiedades[];
-}Comando;
+} Comando;
 
 //Estructuras para particiones y discos
-typedef struct 
+typedef struct
 {
     char Status_particion;
     char TipoParticion;
-    char TipoAjuste[2];
+    char TipoAjuste;
     int Inicio_particion;
     int TamanioTotal;
     char NombreParticion[15];
-}Particion;
+} Particion;
 
 //estructura para el mbr
-typedef struct{
+typedef struct
+{
     int mbr_tamano;
     char mbr_fecha_creacion[16];
     int No_identificacion;
-    char disk_ajusto[2];
+    char disk_ajuste[1];
     Particion particiones[4];
-}MBR;
+} MBR;
 
 //estructura para las particiones logicas
-typedef struct{
+typedef struct
+{
 
-}EBR;
+} EBR;
+
+typedef struct
+{
+    string NombreParticion;
+    string Id;
+    char Estado[1];
+    char EstadoMKS[1];
+} MOUNT;
+
+typedef struct
+{
+    string NombreDisco;
+    string Path;
+    char Id[1];
+    char Estado[1];
+    MOUNT Particines[100];
+} DISCO;
 
 class estructuras
 {
 public:
     estructuras();
- //   ~estructuras();
+    //   ~estructuras();
 };
-
 
 #endif //ESTRUCTURAS_H
