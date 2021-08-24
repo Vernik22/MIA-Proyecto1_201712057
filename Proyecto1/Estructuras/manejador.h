@@ -1,6 +1,8 @@
 #ifndef MANEJADOR_H
 #define MANEJADOR_H
 #include <iostream>
+#include <vector>
+
 
 using namespace std;
 
@@ -11,7 +13,7 @@ private:
 public:
     manejador(/* args */);
 
-    void leerTexto();
+    void leerTexto(string data, vector<int> &listaDiscos);
     
 };
 

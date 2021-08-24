@@ -1,4 +1,7 @@
 #include "list.h"
+#include "nodo.h"
+#include "nodo.cpp"
+ 
  
 using namespace std;
  

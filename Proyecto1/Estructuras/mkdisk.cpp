@@ -17,21 +17,20 @@ mkdisk::mkdisk()
 
 void mkdisk::ejecutarComandoMkdisk(mkdisk *disco)
 {
-    printf(" --------Ejecutar MKDISK----------\n");
+    printf("------------------------------Ejecutar comando MKDISK------------------------------\n");
 
     //verificar que el directorio existe
     vector<string> resultados;
     resultados = split(disco->path, '/');
-    struct stat st;
-    if (stat(disco->path.c_str(), &st) == 0)
-        printf("Existe \n");
-    else
-    {
-        printf("No Existe \n");
-        for(int i = 0; i < resultados.size(); i++){
-        cout << resultados[i] << endl;
+    string newpath = "";
+    string pathconc = "";
+    for (int i = 1; i < resultados.size() - 1; i++)
+    {                                             //llenar el string con el path sin el disk.dk
+        pathconc += "/\"" + resultados[i] + "\""; //le agrego comillas a los nombres por si vienen con espacios por ejemplo "mis discos"
+        newpath += "/" + resultados[i];           //este es sin comillas para buscar el directorio no importa si vienen con espacios
     }
-    }
+    //cout << newpath << endl;
+    dirExist(newpath, pathconc); //verifica si la path existe, si no existe la crea
 
     MBR mbrDisco;
     FILE *arch;
@@ -146,4 +145,21 @@ vector<string> mkdisk::split(string str, char pattern)
     }
 
     return results;
+}
+
+void mkdisk::dirExist(string path, string pathconc)
+{
+    struct stat st;
+    if (stat(path.c_str(), &st) == 0)
+    {
+        printf("Existe el directorio\n");
+    }
+
+    else
+    {
+        printf("No Existe el directorio: %s\n", path.c_str());
+        string comando = "mkdir " + pathconc;
+        system(comando.c_str());
+        printf("Se creo el dir en: %s \n", path.c_str());
+    }
 }

@@ -17,6 +17,7 @@ public:
     void ejecutarComandoMkdisk(mkdisk *disco);
     void ejecutarComando(string comando);
     vector<string> split(string str, char pattern);
+    void dirExist(string path, string pathconc);
 };
 
 #endif // IMKDISK_H
