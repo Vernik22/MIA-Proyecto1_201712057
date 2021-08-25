@@ -15,7 +15,7 @@ typedef struct
 typedef struct
 {
     string Name;
-    Propiedad propiedades[];
+    Propiedad propiedades[10];
 } Comando;
 
 //Estructuras para particiones y discos

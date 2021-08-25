@@ -2,6 +2,7 @@
 #define MANEJADOR_H
 #include <iostream>
 #include <vector>
+#include "estructuras.h"
 
 
 using namespace std;
@@ -14,7 +15,8 @@ public:
     manejador(/* args */);
 
     void leerTexto(string data, vector<int> &listaDiscos);
-    
+    void listaComandosValidos(vector<Comando> listaComandos);
+    vector<string> split(string str, char pattern);
 };
 
 
