@@ -163,3 +163,55 @@ void mkdisk::dirExist(string path, string pathconc)
         printf("Se creo el dir en: %s \n", path.c_str());
     }
 }
+
+bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
+{
+    printf("---MKDISK---\n");
+    mkdisk *df = new mkdisk();
+    try
+    {
+        bool paramValid = true;
+        bool flagFit = true; //bandera para este parametro que es opcional
+        bool flagUnit = true; //bandera para este parametro que es opcional
+        for (int i = 0; i < 10; i++)
+        {
+            Propiedad propiedadTemp = propiedades[i];
+            string nombrePropiedad = propiedadTemp.Name;
+            std::for_each(nombrePropiedad.begin(), nombrePropiedad.end(), [](char &c)
+                          { c = ::tolower(c); });
+
+            if (nombrePropiedad == "-size")
+            {
+                /* code */
+            }
+            else if (nombrePropiedad == "-f")
+            {
+                flagFit= false;
+            }
+            else if (nombrePropiedad == "-u")
+            {
+                flagUnit = false;
+            }
+            else if (nombrePropiedad == "-path")
+            {
+                /* code */
+            }
+        }
+
+        if (flagFit) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        {
+            df->ajuste = "ff";
+        }else if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        {
+            df->unit = "m";
+        }
+        
+        
+
+        return paramValid;
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}

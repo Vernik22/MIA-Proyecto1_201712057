@@ -4,8 +4,6 @@
 #include "Estructuras/manejador.cpp"
 #include <vector>
 #include "Estructuras/estructuras.h"
-#include "Estructuras/mkdisk.h"
-#include "Estructuras/mkdisk.cpp"
 
 using namespace std;
 
@@ -26,7 +24,7 @@ int main()
     string p = "------------------------------Ingrese un comando------------------------------\n";
     string comando = "";
 
-    //mkdisk *dico = new mkdisk();
+   // mkdisk *dico = new mkdisk();
     manejador *leer = new manejador();
 
     while (comando != "salir")
@@ -41,16 +39,16 @@ int main()
             leer->leerTexto(comando,listaDiscos);
 
             //estas son pruebas
-           
-            /*
+           /*
+            
             dico->path="/home/vernik/Escritorio/Discos/intento.dk";
             //dico->path = "/home/vernik/Escritorio/mis discos/Disco3.dk";
             dico->unit="m";
             dico->size=100;
             dico->ejecutarComandoMkdisk(dico);
             printf("Disco creado en %s con tamaño %i\n\n  ",dico->path.c_str(),dico->size);
-            */
             
+            */
         }
     }
 
