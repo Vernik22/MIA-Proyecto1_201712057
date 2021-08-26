@@ -21,7 +21,7 @@ int main()
 
     vector<int> listaDiscos;
     listaDiscos = llenarListaDiscos(listaDiscos);
-    string p = "------------------------------Ingrese un comando------------------------------\n";
+    string p = "\n\n------------------------------Ingrese un comando------------------------------\n";
     string comando = "";
 
    // mkdisk *dico = new mkdisk();

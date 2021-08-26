@@ -16,7 +16,7 @@ public:
     string ajuste;
     void ejecutarComandoMkdisk(mkdisk *disco);
     vector<string> split(string str, char pattern);
-    void dirExist(string path, string pathconc);
+    void dirExist(mkdisk *disco);
     bool ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont);
 };
 

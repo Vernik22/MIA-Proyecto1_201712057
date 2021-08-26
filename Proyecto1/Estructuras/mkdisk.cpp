@@ -17,20 +17,6 @@ mkdisk::mkdisk()
 
 void mkdisk::ejecutarComandoMkdisk(mkdisk *disco)
 {
-    printf("------------------------------Ejecutar comando MKDISK------------------------------\n");
-
-    //verificar que el directorio existe
-    vector<string> resultados;
-    resultados = split(disco->path, '/');
-    string newpath = "";
-    string pathconc = "";
-    for (int i = 1; i < resultados.size() - 1; i++)
-    {                                             //llenar el string con el path sin el disk.dk
-        pathconc += "/\"" + resultados[i] + "\""; //le agrego comillas a los nombres por si vienen con espacios por ejemplo "mis discos"
-        newpath += "/" + resultados[i];           //este es sin comillas para buscar el directorio no importa si vienen con espacios
-    }
-    //cout << newpath << endl;
-    dirExist(newpath, pathconc); //verifica si la path existe, si no existe la crea
 
     MBR mbrDisco;
     FILE *arch;
@@ -144,20 +130,38 @@ vector<string> mkdisk::split(string str, char pattern)
     return results;
 }
 
-void mkdisk::dirExist(string path, string pathconc)
+void mkdisk::dirExist(mkdisk *disco)
 {
-    struct stat st;
-    if (stat(path.c_str(), &st) == 0)
-    {
-        printf("Existe el directorio\n");
-    }
+     printf("------------------------------Ejecutar comando MKDISK------------------------------\n");
 
+    //verificar que el directorio existe
+    vector<string> resultados;
+    resultados = split(disco->path, '/');
+    string newpath = "";
+    string pathconc = "";
+    for (int i = 1; i < resultados.size() - 1; i++)
+    {                                             //llenar el string con el path sin el disk.dk
+        pathconc += "/\"" + resultados[i] + "\""; //le agrego comillas a los nombres por si vienen con espacios por ejemplo "mis discos"
+        newpath += "/" + resultados[i];           //este es sin comillas para buscar el directorio no importa si vienen con espacios
+    }
+    //verificar 3 veces si el archivo existe, si el path existe, y enviar el path con comillas
+
+    struct stat st;
+    if (stat(disco->path.c_str(), &st) == 0)
+    {
+        printf("Existe el archivo en: %s\n", disco->path.c_str());
+    }else if (stat(newpath.c_str(), &st) == 0)
+    {
+        printf("Existe el directorio: %s\n",newpath.c_str());
+        ejecutarComandoMkdisk(disco);
+    }
     else
     {
         printf("No Existe el directorio: %s\n", path.c_str());
         string comando = "mkdir " + pathconc;
         system(comando.c_str());
         printf("Se creo el dir en: %s \n", path.c_str());
+        ejecutarComandoMkdisk(disco);
     }
 }
 
@@ -166,6 +170,7 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
 
     try
     {
+        mkdisk *d = new mkdisk();
         printf("---MKDISK---\n");
         bool paramValid = true;
         bool flagFit = true;  //bandera para este parametro que es opcional
@@ -180,35 +185,37 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
             if (nombrePropiedad == "-size")
             {
                 printf("---entra en size---%s\n", propiedadTemp.val.c_str());
-                int s = stoi(propiedadTemp.val.c_str());
-                cout << s << endl;
-                //disco->size = ;
-                printf("size disco: %s \n", disco->size);
+                int s = stoi(propiedadTemp.val);
+                d->size=s;
             }
             else if (nombrePropiedad == "-f")
             {
                 flagFit = false;
+                d->ajuste=propiedadTemp.val;
             }
             else if (nombrePropiedad == "-u")
             {
                 flagUnit = false;
+                d->unit=propiedadTemp.val;
             }
             else if (nombrePropiedad == "-path")
             {
                 printf("---entra en path---\n");
+                d->path=propiedadTemp.val;
+                cout<<d->path<<endl;
             }
         }
 
         if (flagFit) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
-            disco->ajuste = "ff";
+            d->ajuste = "ff";
         }
         else if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
-            disco->unit = "m";
+            d->unit = "m";
         }
 
-        //ejecutarComandoMkdisk();
+        dirExist(d);
         return paramValid;
     }
     catch (const std::exception &e)
