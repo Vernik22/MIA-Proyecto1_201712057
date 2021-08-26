@@ -1,12 +1,13 @@
 #include "manejador.h"
 #include "estructuras.h"
+#include "mkdisk.h"
+#include "mkdisk.cpp"
 #include <vector>
 #include <iostream>
 #include <string>
 #include <algorithm>
 #include <cstring>
-#include "mkdisk.h"
-#include "mkdisk.cpp"
+
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -40,29 +41,29 @@ void manejador::leerTexto(string data, vector<int> &listaDiscos)
             c.Name = nombreComando;
             Propiedad propiedadesTem[10];
 
-            for (int i = 1; i < propiedades.size(); i++)
+            for (int j = 1; j < propiedades.size(); j++)
             {
-                if (propiedades[i] == "")
+                if (propiedades[j] == "")
                 {
                     continue;
                 }
-                else if (propiedades[i] == "-p") //no se para que es
+                else if (propiedades[j] == "-p") //no se para que es
                 {
-                    propiedadesTem[i - 1].Name = "-p";
-                    propiedadesTem[i - 1].val = "-p";
+                    propiedadesTem[j - 1].Name = "-p";
+                    propiedadesTem[j - 1].val = "-p";
                 }
                 else
                 {
-                    if (strstr(propiedades[i].c_str(), "=") != NULL)
+                    if (strstr(propiedades[j].c_str(), "=") != NULL)
                     {
-                        vector<string> valor_propiedad_Comando = split(propiedades[i], '=');
-                        propiedadesTem[i - 1].Name = valor_propiedad_Comando[0];
-                        propiedadesTem[i - 1].val = valor_propiedad_Comando[1];
+                        vector<string> valor_propiedad_Comando = split(propiedades[j], '=');
+                        propiedadesTem[j-1].Name = valor_propiedad_Comando[0];
+                        propiedadesTem[j-1].val = valor_propiedad_Comando[1];
                     }
                     else
                     {
-                        propiedadesTem[i - 1].Name = "-sigue";
-                        propiedadesTem[i - 1].val = propiedades[i];
+                        propiedadesTem[j - 1].Name = "-sigue";
+                        propiedadesTem[j - 1].val = propiedades[i];
                     }
                 }
             }
@@ -97,8 +98,8 @@ void manejador::listaComandosValidos(vector<Comando> listaComandos)
         if (nombreComando == "mkdisk")
         {
 
-            mkdisk *disco = new mkdisk();
-            bool parametrosValidos = disco->ejecMkdisk(nombreComando, comandoTemp.propiedades, cont);
+            mkdisk *jdisco = new mkdisk();
+            bool parametrosValidos = jdisco->ejecMkdisk(nombreComando, comandoTemp.propiedades, cont);
             if (parametrosValidos == false)
             {
                 printf("--- Parametros Invalidos ---\n");

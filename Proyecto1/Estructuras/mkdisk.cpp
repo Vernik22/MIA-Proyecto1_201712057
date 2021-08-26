@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <sys/stat.h>
-
+#include <algorithm>
 #include <iostream>
 #include <cstdlib>
 #include <vector>
@@ -124,9 +124,6 @@ void mkdisk::ejecutarComandoMkdisk(mkdisk *disco)
     }
 }
 
-void mkdisk::ejecutarComando(string comandos)
-{
-}
 
 vector<string> mkdisk::split(string str, char pattern)
 {
@@ -166,12 +163,12 @@ void mkdisk::dirExist(string path, string pathconc)
 
 bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
 {
-    printf("---MKDISK---\n");
-    mkdisk *df = new mkdisk();
+
     try
     {
+        printf("---MKDISK---\n");
         bool paramValid = true;
-        bool flagFit = true; //bandera para este parametro que es opcional
+        bool flagFit = true;  //bandera para este parametro que es opcional
         bool flagUnit = true; //bandera para este parametro que es opcional
         for (int i = 0; i < 10; i++)
         {
@@ -182,11 +179,15 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
 
             if (nombrePropiedad == "-size")
             {
-                /* code */
+                printf("---entra en size---%s\n", propiedadTemp.val.c_str());
+                int s = stoi(propiedadTemp.val.c_str());
+                cout << s << endl;
+                //disco->size = ;
+                printf("size disco: %s \n", disco->size);
             }
             else if (nombrePropiedad == "-f")
             {
-                flagFit= false;
+                flagFit = false;
             }
             else if (nombrePropiedad == "-u")
             {
@@ -194,20 +195,20 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
             }
             else if (nombrePropiedad == "-path")
             {
-                /* code */
+                printf("---entra en path---\n");
             }
         }
 
         if (flagFit) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
-            df->ajuste = "ff";
-        }else if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
-        {
-            df->unit = "m";
+            disco->ajuste = "ff";
         }
-        
-        
+        else if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        {
+            disco->unit = "m";
+        }
 
+        //ejecutarComandoMkdisk();
         return paramValid;
     }
     catch (const std::exception &e)
