@@ -7,6 +7,8 @@
 #include <string>
 #include <algorithm>
 #include <cstring>
+#include "rmdisk.h"
+#include "rmdisk.cpp"
 
 
 using namespace std;
@@ -107,7 +109,8 @@ void manejador::listaComandosValidos(vector<Comando> listaComandos)
         }
         else if (nombreComando == "rmdisk")
         {
-            printf("---RMDISK---\n");
+            rmdisk *discoaRem = new rmdisk();
+            discoaRem->ejecRmdisk(nombreComando, comandoTemp.propiedades, cont);
         }
     }
 }

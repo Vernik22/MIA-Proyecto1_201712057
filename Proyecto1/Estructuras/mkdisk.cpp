@@ -171,7 +171,7 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
     try
     {
         mkdisk *d = new mkdisk();
-        printf("---MKDISK---\n");
+        //printf("---MKDISK---\n");
         bool paramValid = true;
         bool flagFit = true;  //bandera para este parametro que es opcional
         bool flagUnit = true; //bandera para este parametro que es opcional
