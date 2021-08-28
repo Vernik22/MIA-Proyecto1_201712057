@@ -62,7 +62,7 @@ bool rmdisk::ejecRmdisk(string nombreComando, Propiedad propiedades[], int cont)
     {
         rmdisk *disco = new rmdisk();
         bool paramValid = true;
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++) // recorrer los parametros y armando la clase disco
         {
             Propiedad propiedadTemp = propiedades[i];
             string nombrePropiedad = propiedadTemp.Name;

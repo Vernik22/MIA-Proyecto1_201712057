@@ -9,8 +9,6 @@ class rmdisk{
 
 public:
     rmdisk();
-    int size;
-    string fechaCreachion;
     string path;
     void dirExist(rmdisk *disco);
     vector<string> split(string str, char pattern);

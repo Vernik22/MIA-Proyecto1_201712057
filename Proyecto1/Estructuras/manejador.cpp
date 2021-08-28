@@ -9,7 +9,8 @@
 #include <cstring>
 #include "rmdisk.h"
 #include "rmdisk.cpp"
-
+#include "fdisk.h"
+#include "fdisk.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -59,8 +60,8 @@ void manejador::leerTexto(string data, vector<int> &listaDiscos)
                     if (strstr(propiedades[j].c_str(), "=") != NULL)
                     {
                         vector<string> valor_propiedad_Comando = split(propiedades[j], '=');
-                        propiedadesTem[j-1].Name = valor_propiedad_Comando[0];
-                        propiedadesTem[j-1].val = valor_propiedad_Comando[1];
+                        propiedadesTem[j - 1].Name = valor_propiedad_Comando[0];
+                        propiedadesTem[j - 1].val = valor_propiedad_Comando[1];
                     }
                     else
                     {
@@ -111,6 +112,12 @@ void manejador::listaComandosValidos(vector<Comando> listaComandos)
         {
             rmdisk *discoaRem = new rmdisk();
             discoaRem->ejecRmdisk(nombreComando, comandoTemp.propiedades, cont);
+        }
+        else if (nombreComando == "fdisk")
+        {
+            fdisk *discoF = new fdisk();
+            //dsicoF->ejecutarComandoFdisk();
+            
         }
     }
 }

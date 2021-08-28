@@ -200,9 +200,9 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
             }
             else if (nombrePropiedad == "-path")
             {
-                printf("---entra en path---\n");
                 d->path=propiedadTemp.val;
-                cout<<d->path<<endl;
+            }else if(nombrePropiedad!=""){
+                paramValid=false;
             }
         }
 
@@ -215,8 +215,16 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
             d->unit = "m";
         }
 
-        dirExist(d);
+        
+        if (paramValid)
+        {
+            dirExist(d);
         return paramValid;
+        }else{
+            return paramValid;
+        }
+        
+        
     }
     catch (const std::exception &e)
     {
