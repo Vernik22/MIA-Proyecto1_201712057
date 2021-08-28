@@ -25,6 +25,7 @@ public:
     bool ejecFdisk(string nombreComando, Propiedad propiedades[], int cont);
     void dirExist(fdisk *disco);
     vector<string> split(string str, char pattern);
+    bool hayEspacio(int tamanoParticion, int tamanoDisco);
 };
 
 #endif //FDISK_H

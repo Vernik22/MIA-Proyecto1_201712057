@@ -22,6 +22,7 @@ void fdisk::ejecutarComandoFdisk(fdisk *disco)
     //abrir el archivo
     FILE *arch;
     int tamanoParticion;
+    int startPart;
     arch = fopen(disco->path.c_str(), "rb+"); //se abre el archivo del disco en modo lectura
 
     if (arch == NULL)
@@ -78,6 +79,7 @@ void fdisk::ejecutarComandoFdisk(fdisk *disco)
     if (disco->type == "P" || disco->type == "p")
     {
         mbrTemp.particiones[0].TipoParticion = 'P';
+        //aqui va el codigo 
     }
     else if (disco->type == "E" || disco->type == "e")
     {
@@ -93,11 +95,22 @@ void fdisk::ejecutarComandoFdisk(fdisk *disco)
 
         fseek(arch, mbrTemp.particiones[0].Inicio_particion, SEEK_SET); //se posiciona al inicio de la particion para meter el EBR
         fwrite(&auxiliar, sizeof(EBR), 1, arch);
+    }else if (disco->type == "L" || disco->type == "l"){
+
+
+    }else{
+        //default
+        printf("Ocurrio un Error\n");
     }
 
     fseek(arch, 0, SEEK_SET); //modificar en donde esta el mbr original
     fwrite(&mbrTemp, sizeof(MBR), 1, arch);
     fclose(arch);
+
+    if (hayEspacio(tamanoParticion, mbrTemp.mbr_tamano))
+    {
+        //si hay espacio en el disco para la particion
+    }
 }
 
 bool fdisk::ejecFdisk(string nombreComando, Propiedad propiedades[], int cont)
@@ -271,4 +284,15 @@ void fdisk::imprimirDatosDisco(string path)
             // }
         }
     }
+}
+
+bool fdisk::hayEspacio(int tamanoParticion, int tamanoDisco)
+{
+    if (tamanoParticion > tamanoDisco || tamanoParticion < 0)
+    {
+        printf("ERROR -----> El tamaño de la particion es mayor al tamaño del disco o el tamaño es incorrecto\n");
+        return false;
+    }
+
+    return true;
 }
