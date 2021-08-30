@@ -53,18 +53,18 @@ typedef struct
 typedef struct
 {
     string NombreParticion;
-    string Id;
-    char Estado[1];
-    char EstadoMKS[1];
+    string id;
+    char estado;
+    char EstadoMKS;
 } MOUNT;
 
 typedef struct
 {
     string NombreDisco;
     string Path;
-    char Id[1];
-    char Estado[1];
-    MOUNT Particines[100];
+    char id;
+    char estado;
+    MOUNT Particiones[100];
 } DISCO;
 
 typedef struct

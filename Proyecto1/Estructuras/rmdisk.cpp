@@ -28,11 +28,11 @@ void rmdisk::dirExist(rmdisk *disco)
         printf("Existe el archivo en: %s\n", disco->path.c_str());
         string comando = "rm " + pathconc;
         system(comando.c_str());
-        printf("Se borro el archivo en: %s \n", path.c_str());
+        printf("Se borro el archivo en: %s \n", disco->path.c_str());
     }
     else
     {
-        printf("No Existe el archivo: %s\n", path.c_str());
+        printf("No Existe el archivo: %s\n", disco->path.c_str());
     }
 }
 

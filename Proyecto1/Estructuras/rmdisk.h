@@ -5,7 +5,8 @@
 #include <vector>
 using namespace std;
 
-class rmdisk{
+class rmdisk
+{
 
 public:
     rmdisk();

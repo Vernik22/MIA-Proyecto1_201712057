@@ -11,6 +11,8 @@
 #include "rmdisk.cpp"
 #include "fdisk.h"
 #include "fdisk.cpp"
+#include "mount.h"
+#include "mount.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -118,7 +120,13 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos)
             fdisk *discoF = new fdisk();
             discoF->ejecFdisk(nombreComando,comandoTemp.propiedades,cont);
             
+        }else if (nombreComando == "mount")
+        {
+           // mount *discoM = new mount();
+            //discoM->ejecMount();
+            //discoM->ejecutarReporteMount();
         }
+        
     }
 }
 vector<string> manejador::split(string str, char pattern)

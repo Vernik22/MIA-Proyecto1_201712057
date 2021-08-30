@@ -157,10 +157,10 @@ void mkdisk::dirExist(mkdisk *disco)
     }
     else
     {
-        printf("No Existe el directorio: %s\n", path.c_str());
+        printf("No Existe el directorio: %s\n", disco->path.c_str());
         string comando = "mkdir " + pathconc;
         system(comando.c_str());
-        printf("Se creo el dir en: %s \n", path.c_str());
+        printf("Se creo el dir en: %s \n", disco->path.c_str());
         ejecutarComandoMkdisk(disco);
     }
 }
