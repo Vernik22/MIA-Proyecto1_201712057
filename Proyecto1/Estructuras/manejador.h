@@ -14,8 +14,8 @@ private:
 public:
     manejador(/* args */);
 
-    void leerTexto(string data, vector<int> &listaDiscos);
-    void listaComandosValidos(vector<Comando> listaComandos);
+    void leerTexto(string data);    //, vector<int> &listaDiscos
+    void listaComandosValidos(vector<Comando> &listaComandos);
     vector<string> split(string str, char pattern);
 };
 

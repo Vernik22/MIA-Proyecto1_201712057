@@ -19,7 +19,7 @@ vector<int> llenarListaDiscos(vector<int> &listaDiscos)
 int main()
 {
 
-    vector<int> listaDiscos;
+    //vector<int> listaDiscos;
     //listaDiscos = llenarListaDiscos(listaDiscos);
     string p = "\n\n------------------------------Ingrese un comando------------------------------\n";
     string comando = "";
@@ -36,7 +36,8 @@ int main()
 
         if (comando != "" && comando != "salir")
         { 
-            leer->leerTexto(comando,listaDiscos);
+            //leer->leerTexto(comando,listaDiscos);
+            leer->leerTexto(comando);
 
             //estas son pruebas
            /*

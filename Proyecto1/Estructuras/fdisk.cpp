@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 #include <sstream>
 #include <fstream>
@@ -563,11 +564,6 @@ bool fdisk::inicioParticionLogica(string path, EBR ebrTemp)
     FILE *arch;
     arch = fopen(path.c_str(), "rb+"); //se abre el archivo del disco en modo lectura
 
-    if (arch == NULL)
-    {
-        std::cout << "Error! El disco no existe\n"; //si da null es porque no se encontro el archivo
-        return;
-    }
     fseek(arch, 0, SEEK_SET);              //se posiciona en el bite 0 del archivo
     fread(&mbrTemp, sizeof(MBR), 1, arch); //mbrTemp se guardara, sizeof es el tamaño en bites del mbr que se lee, 1 es la cantidad de elementos y arch el archivo abierto
 

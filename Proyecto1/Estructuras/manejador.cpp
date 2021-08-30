@@ -18,14 +18,14 @@ manejador::manejador()
 {
 }
 //lee y reconoce los comandos
-
-void manejador::leerTexto(string data, vector<int> &listaDiscos)
+//vector<int> &listaDiscos lista discos como parametro
+void manejador::leerTexto(string data )
 {
     printf("------------------------------Leer Comando------------------------------\n");
     vector<Comando> listaComandos;
     vector<string> lineasComando = split(data, '\n');
     Comando c;
-
+    int sizeVec1 = lineasComando.size();
     for (int i = 0; i < lineasComando.size(); i++)
     {
         string esComentario = lineasComando[i];
@@ -43,8 +43,8 @@ void manejador::leerTexto(string data, vector<int> &listaDiscos)
 
             c.Name = nombreComando;
             Propiedad propiedadesTem[10];
-
-            for (int j = 1; j < propiedades.size(); j++)
+            int sizeVec = propiedades.size();
+            for (int j = 1; j < sizeVec; j++)
             {
                 if (propiedades[j] == "")
                 {
@@ -81,12 +81,12 @@ void manejador::leerTexto(string data, vector<int> &listaDiscos)
     listaComandosValidos(listaComandos);
 }
 
-void manejador::listaComandosValidos(vector<Comando> listaComandos)
+void manejador::listaComandosValidos(vector<Comando> &listaComandos)
 {
   //  bool ParametroValido = true;
     int cont = 1;
-
-    for (int i = 0; i < listaComandos.size(); i++)
+    int sizeVec = listaComandos.size();
+    for (int i = 0; i < sizeVec; i++)
     {
         Comando comandoTemp;
         comandoTemp = listaComandos[i];
