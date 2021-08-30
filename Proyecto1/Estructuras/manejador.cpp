@@ -83,7 +83,7 @@ void manejador::leerTexto(string data, vector<int> &listaDiscos)
 
 void manejador::listaComandosValidos(vector<Comando> listaComandos)
 {
-    bool ParametroValido = true;
+  //  bool ParametroValido = true;
     int cont = 1;
 
     for (int i = 0; i < listaComandos.size(); i++)
@@ -116,7 +116,7 @@ void manejador::listaComandosValidos(vector<Comando> listaComandos)
         else if (nombreComando == "fdisk")
         {
             fdisk *discoF = new fdisk();
-            //dsicoF->ejecutarComandoFdisk();
+            discoF->ejecFdisk(nombreComando,comandoTemp.propiedades,cont);
             
         }
     }

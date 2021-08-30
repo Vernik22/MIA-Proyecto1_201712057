@@ -84,4 +84,5 @@ bool rmdisk::ejecRmdisk(string nombreComando, Propiedad propiedades[], int cont)
     {
         std::cerr << e.what() << '\n';
     }
+    return false;
 }

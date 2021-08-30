@@ -230,4 +230,5 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
     {
         std::cerr << e.what() << '\n';
     }
+    return false ; 
 }

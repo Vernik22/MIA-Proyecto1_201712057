@@ -26,6 +26,8 @@ public:
     void dirExist(fdisk *disco);
     vector<string> split(string str, char pattern);
     bool hayEspacio(int tamanoParticion, int tamanoDisco);
+    bool inicioParticionLogica(string path,EBR ebrTemp);
+    void eliminarParticion(string path,string nombre,string tipoDelete);
 };
 
 #endif //FDISK_H

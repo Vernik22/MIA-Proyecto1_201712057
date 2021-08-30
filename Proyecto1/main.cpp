@@ -6,7 +6,7 @@
 #include "Estructuras/estructuras.h"
 
 using namespace std;
-
+/*
 vector<int> llenarListaDiscos(vector<int> &listaDiscos)
 {
     vector<int> results;
@@ -14,13 +14,13 @@ vector<int> llenarListaDiscos(vector<int> &listaDiscos)
 
     return results;
 }
-
+*/
 
 int main()
 {
 
     vector<int> listaDiscos;
-    listaDiscos = llenarListaDiscos(listaDiscos);
+    //listaDiscos = llenarListaDiscos(listaDiscos);
     string p = "\n\n------------------------------Ingrese un comando------------------------------\n";
     string comando = "";
 
