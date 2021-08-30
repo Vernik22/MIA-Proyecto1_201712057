@@ -9,10 +9,10 @@ Tendra opcion de cargar una seria de comandos preestablecidos por medio de un ar
 
 ### Comandos Soportados por la Aplicacion
 
-- MKDISK 
+- **MKDISK** :
 Este comando creara un archivo binario que simula un disco duro, este archivo binario tendra la extension **.dk**. Su contenido al inicio sera 0 o vacio.
 Tendra una serie de parametros los cuales son :
 
-+ **size**  *obligatorio* : este parametro recibira un numero que indicara el tamaño del disco a crear.
-+ **f** *opcional* : indica el ajuste del disco a crear: **BF, FF, WF** 
+  + **size**  *obligatorio* : este parametro recibira un numero que indicara el tamaño del disco a crear.
+    + **f** *opcional* : indica el ajuste del disco a crear: **BF, FF, WF** 
 
