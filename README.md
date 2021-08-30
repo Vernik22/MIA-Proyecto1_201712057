@@ -13,7 +13,14 @@ Tendra opcion de cargar una seria de comandos preestablecidos por medio de un ar
 Este comando creara un archivo binario que simula un disco duro, este archivo binario tendra la extension **.dk**. Su contenido al inicio sera 0 o vacio.
 Tendra una serie de parametros los cuales son :
 
-  + **size**  *obligatorio* : este parametro recibira un numero que indicara el tamaño del disco a crear.
-  + **f** *opcional* : indica el ajuste del disco a crear: **BF, FF, WF** 
+  + **-size**  *obligatorio* : este parametro recibira un numero que indicara el tamaño del disco a crear.
+  + **-f** *opcional* : indica el ajuste del disco a crear: **BF, FF, WF** 
+  + **-u** *opcional* : letra que representa las unidades para el parametro size. **k,m**
+  + **-path** *obligatorio* : sera la ruta donde se creara el archivo binario
 
+- **Ejemplos**
+Crea un disco de 200 Mb en la carpeta home
+`Mkdisk -size=200 -u=M -path=/home/user/Disco1.dk`
+Creara un disco de 10 Mb ya que no hay parametro unit
+`Mkdisk -size=10 -path=/home/user/Disco1.dk`
 * * *
