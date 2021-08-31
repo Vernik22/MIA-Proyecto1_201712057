@@ -125,7 +125,12 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos)
            // mount *discoM = new mount();
             //discoM->ejecMount();
             //discoM->ejecutarReporteMount();
+        }else if (nombreComando == "umount")
+        {
+            //umount *discoU = new umount();
+            //discoU->ejecUmount();
         }
+        
         
     }
 }

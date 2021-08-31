@@ -11,7 +11,7 @@ mount::mount()
 {
 }
 
-bool mount::ejecMount(string nombreComando, Propiedad propiedades[])
+bool mount::ejecMount(string nombreComando, Propiedad propiedades[],vector<DISCO> &listaDiscos)
 {
     try
     {
@@ -41,7 +41,7 @@ bool mount::ejecMount(string nombreComando, Propiedad propiedades[])
 
         if (flagPath && flagName)
         {
-            dirExist(disco);
+            dirExist(disco, listaDiscos);
             return paramValid;
         }
         else
@@ -58,7 +58,7 @@ bool mount::ejecMount(string nombreComando, Propiedad propiedades[])
     return false;
 }
 
-void mount::dirExist(mount *disco)
+void mount::dirExist(mount *disco, vector<DISCO> &listaDiscos)
 {
     printf("------------------------------Ejecutar comando MOUNT------------------------------\n");
     //verificar que el directorio existe
@@ -101,7 +101,7 @@ vector<string> mount::split(string str, char pattern)
     return results;
 }
 
-bool mount::ejecutarComandoMount(mount *disco, vector<DISCO> listaDiscos)
+bool mount::ejecutarComandoMount(mount *disco, vector<DISCO> &listaDiscos)
 {
     bool encontrada = false;
     vector<string> lineaComando = split(disco->path, '/');
@@ -168,7 +168,7 @@ bool mount::ejecutarComandoMount(mount *disco, vector<DISCO> listaDiscos)
     return true;
 }
 
-void mount::particionMontar(vector<DISCO> listaDiscos, string nombreParticion, string nombreDisco, string path)
+void mount::particionMontar(vector<DISCO> &listaDiscos, string nombreParticion, string nombreDisco, string path)
 {
     int pos = listaDiscos.size();
     for (int i = 0; i < pos; i++)
@@ -230,7 +230,7 @@ void mount::particionMontar(vector<DISCO> listaDiscos, string nombreParticion, s
     }
 }
 
-bool mount::existeDisco(vector<DISCO> listaDiscos, string nombreDisco)
+bool mount::existeDisco(vector<DISCO> &listaDiscos, string nombreDisco)
 {
     bool existe = false;
     int pos = listaDiscos.size();
@@ -250,7 +250,7 @@ bool mount::existeDisco(vector<DISCO> listaDiscos, string nombreDisco)
     return existe;
 }
 
-void mount::ejecutarReporteMount(vector<DISCO> listaDiscos)
+void mount::ejecutarReporteMount(vector<DISCO> &listaDiscos)
 {
     printf("------------------------------MOUNT------------------------------\n");
     int pos = listaDiscos.size();
