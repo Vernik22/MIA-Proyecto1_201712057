@@ -6,25 +6,46 @@
 #include "Estructuras/estructuras.h"
 
 using namespace std;
-/*
-vector<int> llenarListaDiscos(vector<int> &listaDiscos)
+//vector<DISCO>
+void llenarListaDiscos(vector<DISCO> &listaDiscos)
 {
-    vector<int> results;
-    cout << "Pasa por llenardiscos" << endl;
+    vector<char> idDis = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                          'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+                          'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-    return results;
+    for (int i = 0; i < 26; i++)
+    {
+        DISCO dis;
+        dis.estado = '0';
+        dis.id = idDis[i];
+        for (int j = 0; j < 100; j++)
+        {
+            MOUNT mountTemp;
+            mountTemp.NombreParticion = "";
+            mountTemp.id = to_string(j + 1);
+            mountTemp.estado = '0';
+            dis.Particiones[j] = mountTemp;
+        }
+        listaDiscos.push_back(dis);
+    }
+    /*
+    cout << "Pasa por llenardiscos" << endl;
+    cout << listaDiscos[0].estado << endl;
+    cout << listaDiscos[0].id << endl;
+    cout << listaDiscos[0].Particiones[0].id << endl;
+    cout << listaDiscos[0].Particiones[0].estado << endl;
+    */
 }
-*/
 
 int main()
 {
 
-    //vector<int> listaDiscos;
-    //listaDiscos = llenarListaDiscos(listaDiscos);
+    vector<DISCO> listaDiscos;
+    llenarListaDiscos(listaDiscos);
     string p = "\n\n------------------------------Ingrese un comando------------------------------\n";
     string comando = "";
 
-   // mkdisk *dico = new mkdisk();
+    // mkdisk *dico = new mkdisk();
     manejador *leer = new manejador();
 
     while (comando != "salir")
@@ -35,12 +56,12 @@ int main()
         getline(cin, comando); // espera el comando y lo asigna a la variable comando
 
         if (comando != "" && comando != "salir")
-        { 
-            //leer->leerTexto(comando,listaDiscos);
-            leer->leerTexto(comando);
+        {
+            leer->leerTexto(comando, listaDiscos);
+            //leer->leerTexto(comando);
 
             //estas son pruebas
-           /*
+            /*
             
             dico->path="/home/vernik/Escritorio/Discos/intento.dk";
             //dico->path = "/home/vernik/Escritorio/mis discos/Disco3.dk";
@@ -55,5 +76,3 @@ int main()
 
     return 0;
 }
-
-

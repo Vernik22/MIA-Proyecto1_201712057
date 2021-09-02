@@ -13,6 +13,8 @@
 #include "fdisk.cpp"
 #include "mount.h"
 #include "mount.cpp"
+#include "umount.h"
+#include "umount.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -21,7 +23,7 @@ manejador::manejador()
 }
 //lee y reconoce los comandos
 //vector<int> &listaDiscos lista discos como parametro
-void manejador::leerTexto(string data )
+void manejador::leerTexto(string data, vector<DISCO> &listaDiscos)
 {
     printf("------------------------------Leer Comando------------------------------\n");
     vector<Comando> listaComandos;
@@ -80,12 +82,12 @@ void manejador::leerTexto(string data )
             listaComandos.push_back(c);
         }
     }
-    listaComandosValidos(listaComandos);
+    listaComandosValidos(listaComandos, listaDiscos);
 }
 
-void manejador::listaComandosValidos(vector<Comando> &listaComandos)
+void manejador::listaComandosValidos(vector<Comando> &listaComandos, vector<DISCO> &listaDiscos)
 {
-  //  bool ParametroValido = true;
+    //  bool ParametroValido = true;
     int cont = 1;
     int sizeVec = listaComandos.size();
     for (int i = 0; i < sizeVec; i++)
@@ -118,20 +120,19 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos)
         else if (nombreComando == "fdisk")
         {
             fdisk *discoF = new fdisk();
-            discoF->ejecFdisk(nombreComando,comandoTemp.propiedades,cont);
-            
-        }else if (nombreComando == "mount")
-        {
-           // mount *discoM = new mount();
-            //discoM->ejecMount();
-            //discoM->ejecutarReporteMount();
-        }else if (nombreComando == "umount")
-        {
-            //umount *discoU = new umount();
-            //discoU->ejecUmount();
+            discoF->ejecFdisk(nombreComando, comandoTemp.propiedades, cont);
         }
-        
-        
+        else if (nombreComando == "mount")
+        {
+             mount *discoM = new mount();
+            discoM->ejecMount(nombreComando, comandoTemp.propiedades,listaDiscos);
+            discoM->ejecutarReporteMount(listaDiscos);
+        }
+        else if (nombreComando == "umount")
+        {
+            umount *discoU = new umount();
+            discoU->ejecUmount(nombreComando, comandoTemp.propiedades,listaDiscos);
+        }
     }
 }
 vector<string> manejador::split(string str, char pattern)

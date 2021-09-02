@@ -210,7 +210,7 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
         {
             d->ajuste = "ff";
         }
-        else if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
             d->unit = "m";
         }

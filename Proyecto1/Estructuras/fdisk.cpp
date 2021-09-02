@@ -135,7 +135,7 @@ void fdisk::ejecutarComandoFdisk(fdisk *disco)
         if (arch == NULL)
         {
             std::cout << "Error! El disco no existe\n"; //si da null es porque no se encontro el archivo
-            return;
+            
         }
         fseek(arch, 0, SEEK_SET);              //se posiciona en el bite 0 del archivo
         fread(&mbrTemp, sizeof(MBR), 1, arch); //mbrTemp se guardara, sizeof es el tamaño en bites del mbr que se lee, 1 es la cantidad de elementos y arch el archivo abierto
@@ -316,19 +316,19 @@ bool fdisk::ejecFdisk(string nombreComando, Propiedad propiedades[], int cont)
         {
             d->ajuste = "wf";
         }
-        else if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        if (flagUnit) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
             d->unit = "k";
         }
-        else if (flagType) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        if (flagType) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
             d->type = "p";
         }
-        else if (flagDelete) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        if (flagDelete) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
             d->borrar = ""; //el fast es por defecto
         }
-        else if (flagAdd) // si el parametro no venia entra aqui y se pone el parametro por defecto
+        if (flagAdd) // si el parametro no venia entra aqui y se pone el parametro por defecto
         {
             d->add = 0;
         }
@@ -551,7 +551,8 @@ void fdisk::eliminarParticion(string path, string nombre, string tipoDelete)
             }
         }
     }
-    if(Entrada== false){
+    if (Entrada == false)
+    {
         printf("Error no se encontro la particion \n");
     }
     fclose(arch);

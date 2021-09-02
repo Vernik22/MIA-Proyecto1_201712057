@@ -4,7 +4,6 @@
 #include <vector>
 #include "estructuras.h"
 
-
 using namespace std;
 
 class manejador
@@ -14,10 +13,9 @@ private:
 public:
     manejador(/* args */);
 
-    void leerTexto(string data);    //, vector<int> &listaDiscos
-    void listaComandosValidos(vector<Comando> &listaComandos);
+    void leerTexto(string data, vector<DISCO> &listaDiscos); //,
+    void listaComandosValidos(vector<Comando> &listaComandos, vector<DISCO> &listaDiscos);
     vector<string> split(string str, char pattern);
 };
-
 
 #endif //MANEJADOR_H
