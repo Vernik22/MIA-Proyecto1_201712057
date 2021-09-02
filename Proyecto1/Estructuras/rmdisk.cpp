@@ -73,7 +73,7 @@ bool rmdisk::ejecRmdisk(string nombreComando, Propiedad propiedades[], int cont)
 
             if (nombrePropiedad == "-path")
             {
-                disco->path=propiedadTemp.val;
+                disco->path = propiedadTemp.val;
             }
         }
 

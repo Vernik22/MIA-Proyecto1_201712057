@@ -4,7 +4,7 @@
 #include <sys/stat.h>
 #include <vector>
 #include "manejador.h"
-#include "manejador.cpp"
+//#include "manejador.cpp"
 #include <fstream>
 #include <stdlib.h>
 #include <iostream>
