@@ -15,6 +15,8 @@
 #include "mount.cpp"
 #include "umount.h"
 #include "umount.cpp"
+#include "mkfs.h"
+#include "mkfs.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -30,7 +32,7 @@ void manejador::leerTexto(string data, vector<DISCO> &listaDiscos)
     vector<string> lineasComando = split(data, '\n');
     Comando c;
     int sizeVec1 = lineasComando.size();
-    for (int i = 0; i < lineasComando.size(); i++)
+    for (int i = 0; i < sizeVec1; i++)
     {
         string esComentario = lineasComando[i];
         if (strstr(esComentario.c_str(), "#") == NULL)
@@ -133,6 +135,12 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos, vector<DISC
             umount *discoU = new umount();
             discoU->ejecUmount(nombreComando, comandoTemp.propiedades,listaDiscos);
         }
+        else if (nombreComando == "mkfs")
+        {
+            mkfs *discoM = new mkfs();
+            discoM->ejecMkfs(nombreComando,comandoTemp.propiedades,listaDiscos);
+        }
+        
     }
 }
 vector<string> manejador::split(string str, char pattern)

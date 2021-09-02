@@ -17,9 +17,8 @@ public:
     void ejecutarComandoMkfs(mkfs *disco,vector<DISCO> &listaDiscos);
     vector<MBR> returnMbr(string path,string nombreParticion);
     void crearRaiz(string path, int InicioParticion);
-    void cantidadBloqueUsar();
-    void cantidadInodoUsar();
-    SB devolverSuperBloque();
+    int cantidadBloqueUsar(string data);
+    SB devolverSuperBloque(string path,string nombreParticion);
     bool idValido(string id, vector<DISCO> &listaDiscos);
 };
 
