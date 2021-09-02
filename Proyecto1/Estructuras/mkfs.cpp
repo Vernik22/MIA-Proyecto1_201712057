@@ -80,6 +80,7 @@ bool mkfs::ejecMkfs(string nombreComando, Propiedad propiedades[], vector<DISCO>
 
 void mkfs::ejecutarComandoMkfs(mkfs *disco, vector<DISCO> &listaDiscos)
 {
+    printf("------------------------------Ejecutar comando MKFS------------------------------\n");
     //fecha y hora actual
     time_t rawtime;
     struct tm *timeinfo;

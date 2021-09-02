@@ -17,6 +17,8 @@
 #include "umount.cpp"
 #include "mkfs.h"
 #include "mkfs.cpp"
+#include "exec.h"
+#include "exec.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -139,6 +141,11 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos, vector<DISC
         {
             mkfs *discoM = new mkfs();
             discoM->ejecMkfs(nombreComando,comandoTemp.propiedades,listaDiscos);
+        }
+        else if(nombreComando == "exec"){
+            exec *discoE = new exec();
+            discoE->ejecExec(nombreComando,comandoTemp.propiedades,listaDiscos);
+
         }
         
     }
