@@ -19,6 +19,8 @@
 #include "mkfs.cpp"
 #include "exec.h"
 #include "exec.cpp"
+#include "rep.h"
+#include "rep.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -147,6 +149,12 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos, vector<DISC
             discoE->ejecExec(nombreComando,comandoTemp.propiedades,listaDiscos);
 
         }
+        else if (nombreComando == "rep")
+        {
+            rep *discoR = new rep();
+            discoR->ejecRep(nombreComando,comandoTemp.propiedades,listaDiscos);
+        }
+        
         
     }
 }
