@@ -4,6 +4,7 @@
 #include "mkdisk.cpp"
 #include <vector>
 #include <iostream>
+#include <stdlib.h>
 #include <string>
 #include <algorithm>
 #include <cstring>
@@ -130,32 +131,35 @@ void manejador::listaComandosValidos(vector<Comando> &listaComandos, vector<DISC
         }
         else if (nombreComando == "mount")
         {
-             mount *discoM = new mount();
-            discoM->ejecMount(nombreComando, comandoTemp.propiedades,listaDiscos);
+            mount *discoM = new mount();
+            discoM->ejecMount(nombreComando, comandoTemp.propiedades, listaDiscos);
             discoM->ejecutarReporteMount(listaDiscos);
         }
         else if (nombreComando == "umount")
         {
             umount *discoU = new umount();
-            discoU->ejecUmount(nombreComando, comandoTemp.propiedades,listaDiscos);
+            discoU->ejecUmount(nombreComando, comandoTemp.propiedades, listaDiscos);
         }
         else if (nombreComando == "mkfs")
         {
             mkfs *discoM = new mkfs();
-            discoM->ejecMkfs(nombreComando,comandoTemp.propiedades,listaDiscos);
+            discoM->ejecMkfs(nombreComando, comandoTemp.propiedades, listaDiscos);
         }
-        else if(nombreComando == "exec"){
+        else if (nombreComando == "exec")
+        {
             exec *discoE = new exec();
-            discoE->ejecExec(nombreComando,comandoTemp.propiedades,listaDiscos);
-
+            discoE->ejecExec(nombreComando, comandoTemp.propiedades, listaDiscos);
         }
         else if (nombreComando == "rep")
         {
             rep *discoR = new rep();
-            discoR->ejecRep(nombreComando,comandoTemp.propiedades,listaDiscos);
+            discoR->ejecRep(nombreComando, comandoTemp.propiedades, listaDiscos);
         }
-        
-        
+        else if (nombreComando == "pause")
+        {
+            printf("Presione una tecla para continuar... \n");
+            cin.get();
+        }
     }
 }
 vector<string> manejador::split(string str, char pattern)
