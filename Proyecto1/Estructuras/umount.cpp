@@ -60,8 +60,8 @@ void umount::ejecutarComandoUmount(umount *disco, vector<DISCO> &listaDiscos)
     printf("------------------------------Ejecutar comando UMOUNT------------------------------\n");
     string Id = disco->id;
     bool eliminada = false;
-    char noParticion = Id[2];
-    char idDisco = Id[3];
+    char noParticion = Id[3];
+    char idDisco = Id[2];
     int pos = listaDiscos.size();
     for (int i = 0; i < pos; i++)
     {
@@ -69,31 +69,31 @@ void umount::ejecutarComandoUmount(umount *disco, vector<DISCO> &listaDiscos)
         dis = listaDiscos[i];
         cout << dis.id;
         cout << idDisco << endl;
+        
         if (dis.id == idDisco)
         {
-            for(int j=0;j<100;j++){
+            for (int j = 0; j < 100; j++)
+            {
                 MOUNT mountTemp = dis.Particiones[j];
-                if (mountTemp.id==disco->id)
+                if (mountTemp.id == disco->id)
                 {
-                    eliminada=true;
+                    eliminada = true;
                     printf("Encontrada: %s \n", noParticion);
                     mountTemp.id = noParticion;
                     mountTemp.NombreParticion = "";
-                    mountTemp.estado='0';
-                    mountTemp.EstadoMKS='0';
-                    dis.Particiones[j]=mountTemp;
+                    mountTemp.estado = '0';
+                    mountTemp.EstadoMKS = '0';
+                    dis.Particiones[j] = mountTemp;
                     printf("Particion Desmontada ");
-                    cout<< disco->id;
+                    cout << disco->id;
                     break;
                 }
-                
             }
         }
         listaDiscos[i] = dis;
     }
     if (eliminada == false)
     {
-        printf("No se pudo desmontar la particion con id: %s \n",disco->id.c_str());
+        printf("No se pudo desmontar la particion con id: %s \n", disco->id.c_str());
     }
-    
 }

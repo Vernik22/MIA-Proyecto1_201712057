@@ -5,13 +5,18 @@
 #include <sys/stat.h>
 #include "estructuras.h"
 
+#include <stdio.h>
+#include <iostream>
+#include <cstdlib>
+#include <stdlib.h>
+
 using namespace std;
 
 mount::mount()
 {
 }
 
-bool mount::ejecMount(string nombreComando, Propiedad propiedades[],vector<DISCO> &listaDiscos)
+bool mount::ejecMount(string nombreComando, Propiedad propiedades[], vector<DISCO> &listaDiscos)
 {
     try
     {
@@ -108,11 +113,18 @@ bool mount::ejecutarComandoMount(mount *disco, vector<DISCO> &listaDiscos)
     int pos = lineaComando.size();
     string nombreDisco = lineaComando[pos - 1];
 
+    string path = disco->path;
     FILE *arch;
-    arch = fopen(disco->path.c_str(), "wb");
+    arch = fopen(path.c_str(), "rb+");
+    if (arch == NULL)
+    {
+        //return 0;
+    }
     MBR mbrTemp;
     fseek(arch, 0, SEEK_SET);
     fread(&mbrTemp, sizeof(MBR), 1, arch);
+    fclose(arch);
+
     Particion parts[4];
     for (int i = 0; i < 4; i++)
     {
@@ -163,13 +175,20 @@ bool mount::ejecutarComandoMount(mount *disco, vector<DISCO> &listaDiscos)
         printf("Error no se encontro la particion \n");
     }
 
-    fclose(arch);
-
     return true;
 }
 
 void mount::particionMontar(vector<DISCO> &listaDiscos, string nombreParticion, string nombreDisco, string path)
 {
+    vector<string> idDis = {"a", "b", "c", "d", "e", "f", "g", "h", "i",
+                            "j", "k", "l", "m", "n", "o", "p", "q",
+                            "r", "s", "t", "u", "v", "w", "x", "y", "z", "a", "b", "c", "d", "e", "f", "g", "h", "i",
+                            "j", "k", "l", "m", "n", "o", "p", "q",
+                            "r", "s", "t", "u", "v", "w", "x", "y", "z", "a", "b", "c", "d", "e", "f", "g", "h", "i",
+                            "j", "k", "l", "m", "n", "o", "p", "q",
+                            "r", "s", "t", "u", "v", "w", "x", "y", "z", "a", "b", "c", "d", "e", "f", "g", "h", "i",
+                            "j", "k", "l", "m", "n", "o", "p", "q",
+                            "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     int pos = listaDiscos.size();
     for (int i = 0; i < pos; i++)
     {
@@ -186,7 +205,15 @@ void mount::particionMontar(vector<DISCO> &listaDiscos, string nombreParticion, 
                 MOUNT mountTemp = dis.Particiones[j];
                 if (mountTemp.estado == '0')
                 {
-                    mountTemp.id = "57" + dis.id + mountTemp.id;
+                    char cadenaTemp[2];
+                    cadenaTemp[0] = dis.id;
+                    cadenaTemp[1] = '\0';
+                    int s = stoi(mountTemp.id) - 1 ;
+                    mountTemp.id = "57";
+                    char cad[mountTemp.id.size() + 3];
+                    strcpy(cad, mountTemp.id.c_str());
+                    strcat(cad, cadenaTemp);
+                    mountTemp.id = cad + idDis[s];
                     mountTemp.NombreParticion = nombreParticion;
                     mountTemp.estado = '1';
                     mountTemp.EstadoMKS = '0';
@@ -211,11 +238,29 @@ void mount::particionMontar(vector<DISCO> &listaDiscos, string nombreParticion, 
                 MOUNT mountTemp = dis.Particiones[j];
                 if (mountTemp.estado == '0')
                 {
+
+                    char cadenaTemp[2];
+                    cadenaTemp[0] = dis.id;
+                    cadenaTemp[1] = '\0';
+                    int s = stoi(mountTemp.id) - 1 ;
+                    mountTemp.id = "57";
+                    char cad[mountTemp.id.size() + 3];
+                    strcpy(cad, mountTemp.id.c_str());
+                    strcat(cad, cadenaTemp);
+                    mountTemp.id = cad + idDis[s];
+                    mountTemp.NombreParticion = nombreParticion;
+                    mountTemp.estado = '1';
+                    mountTemp.EstadoMKS = '0';
+                    dis.Particiones[j] = mountTemp;
+
+                    /*
                     mountTemp.id = "57" + dis.id + mountTemp.id;
                     mountTemp.NombreParticion = nombreParticion;
                     mountTemp.estado = '1';
                     mountTemp.EstadoMKS = '0';
                     dis.Particiones[j] = mountTemp;
+                    */
+
                     break;
                 }
                 else if (mountTemp.estado == '1' && mountTemp.NombreParticion == nombreParticion)

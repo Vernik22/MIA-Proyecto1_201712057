@@ -12,7 +12,7 @@ class exec
 public:
     exec();
     string path;
-    bool ejecExec(string nombreComando, Propiedad propiedades[],vector<DISCO> &listaDiscos);
+    bool ejecExec(Propiedad propiedades[],vector<DISCO> &listaDiscos);
     void ejecutarComandoExec(exec *disco,vector<DISCO> &listaDiscos);
 };
 

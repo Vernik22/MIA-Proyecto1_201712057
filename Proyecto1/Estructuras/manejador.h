@@ -16,6 +16,7 @@ public:
     void leerTexto(string data, vector<DISCO> &listaDiscos); //,
     void listaComandosValidos(vector<Comando> &listaComandos, vector<DISCO> &listaDiscos);
     vector<string> split(string str, char pattern);
+    
 };
 
 #endif //MANEJADOR_H

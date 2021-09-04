@@ -25,7 +25,7 @@ void mkdisk::ejecutarComandoMkdisk(mkdisk *disco)
         exit(1);
     //se sibula un KB
     char buffer[1024];
-    if (disco->unit == "k")
+    if (disco->unit == "k" || disco->unit == "K")
     {
         //se asigna el tamaño a mbr
         mbrDisco.mbr_tamano = disco->size * 1024;
@@ -42,7 +42,7 @@ void mkdisk::ejecutarComandoMkdisk(mkdisk *disco)
         fclose(arch);
     }
     //si son megas
-    else if (disco->unit == "m" || disco->unit.empty() == 1)
+    else if (disco->unit == "m" || disco->unit == "M")
     {
         mbrDisco.mbr_tamano = disco->size * 1024 * 1024; //se multiplica 2 veces por que esta en bytes
         for (int i = 0; i < 1024; i++)
@@ -158,7 +158,7 @@ void mkdisk::dirExist(mkdisk *disco)
     else
     {
         printf("No Existe el directorio: %s\n", disco->path.c_str());
-        string comando = "mkdir " + pathconc;
+        string comando = "mkdir -p " + newpath;
         system(comando.c_str());
         printf("Se creo el dir en: %s \n", disco->path.c_str());
         ejecutarComandoMkdisk(disco);
@@ -184,7 +184,7 @@ bool mkdisk::ejecMkdisk(string nombreComando, Propiedad propiedades[], int cont)
 
             if (nombrePropiedad == "-size")
             {
-                printf("---entra en size---%s\n", propiedadTemp.val.c_str());
+                //printf("---entra en size---%s\n", propiedadTemp.val.c_str());
                 int s = stoi(propiedadTemp.val);
                 d->size=s;
             }

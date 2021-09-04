@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string>
 #include <algorithm>
+#include <fstream>
 #include <cstring>
 #include "rmdisk.h"
 #include "rmdisk.cpp"
@@ -18,10 +19,10 @@
 #include "umount.cpp"
 #include "mkfs.h"
 #include "mkfs.cpp"
+//#include "rep.h"
+//#include "rep.cpp"
 #include "exec.h"
 #include "exec.cpp"
-#include "rep.h"
-#include "rep.cpp"
 
 using namespace std;
 /* ---------------------------------------------------------------------- */
@@ -32,18 +33,33 @@ manejador::manejador()
 //vector<int> &listaDiscos lista discos como parametro
 void manejador::leerTexto(string data, vector<DISCO> &listaDiscos)
 {
-    printf("------------------------------Leer Comando------------------------------\n");
+    printf(" \n");
+    cout << endl
+         << data << endl;
     vector<Comando> listaComandos;
     vector<string> lineasComando = split(data, '\n');
     Comando c;
     int sizeVec1 = lineasComando.size();
     for (int i = 0; i < sizeVec1; i++)
     {
+        bool flagCOM = false;
+        vector<string> com;
         string esComentario = lineasComando[i];
-        if (strstr(esComentario.c_str(), "#") == NULL)
+        if (strstr(esComentario.c_str(), "#") != NULL)
+        {
+            com = split(data, '#');
+            flagCOM = true;
+        }
+
+        if (esComentario[0] != '#')
         {
             string comando = lineasComando[i];
             //verificar los comentarios
+            if (flagCOM)
+            {
+                comando = com[0];
+            }
+            
 
             vector<string> propiedades = split(comando, ' ');
             //nombre del comando
@@ -88,77 +104,89 @@ void manejador::leerTexto(string data, vector<DISCO> &listaDiscos)
             //agregando el comando a la lista de comandos
             listaComandos.push_back(c);
         }
+        else
+        {
+            cout << "Es comentario" << endl;
+        }
     }
     listaComandosValidos(listaComandos, listaDiscos);
 }
 
 void manejador::listaComandosValidos(vector<Comando> &listaComandos, vector<DISCO> &listaDiscos)
 {
-    //  bool ParametroValido = true;
-    int cont = 1;
-    int sizeVec = listaComandos.size();
-    for (int i = 0; i < sizeVec; i++)
+    int lis = listaComandos.size();
+    if (lis != 0)
     {
-        Comando comandoTemp;
-        comandoTemp = listaComandos[i];
-        string nombreComando = comandoTemp.Name;
-
-        std::for_each(nombreComando.begin(), nombreComando.end(), [](char &c)
-                      { c = ::tolower(c); });
-
-        //cout << nombreComando << endl;
-
-        //switch improvisado que lee todos los comandos
-        if (nombreComando == "mkdisk")
+        //printf("------------------------------Leer Comando------------------------------\n");
+        //  bool ParametroValido = true;
+        int cont = 1;
+        int sizeVec = listaComandos.size();
+        for (int i = 0; i < sizeVec; i++)
         {
+            Comando comandoTemp;
+            comandoTemp = listaComandos[i];
+            string nombreComando = comandoTemp.Name;
 
-            mkdisk *jdisco = new mkdisk();
-            bool parametrosValidos = jdisco->ejecMkdisk(nombreComando, comandoTemp.propiedades, cont);
-            if (parametrosValidos == false)
+            std::for_each(nombreComando.begin(), nombreComando.end(), [](char &c)
+                          { c = ::tolower(c); });
+
+            //cout << nombreComando << endl;
+
+            //switch improvisado que lee todos los comandos
+            if (nombreComando == "mkdisk")
             {
-                printf("--- Parametros Invalidos ---\n");
+
+                mkdisk *jdisco = new mkdisk();
+                bool parametrosValidos = jdisco->ejecMkdisk(nombreComando, comandoTemp.propiedades, cont);
+                if (parametrosValidos == false)
+                {
+                    printf("--- Parametros Invalidos ---\n");
+                }
             }
-        }
-        else if (nombreComando == "rmdisk")
-        {
-            rmdisk *discoaRem = new rmdisk();
-            discoaRem->ejecRmdisk(nombreComando, comandoTemp.propiedades, cont);
-        }
-        else if (nombreComando == "fdisk")
-        {
-            fdisk *discoF = new fdisk();
-            discoF->ejecFdisk(nombreComando, comandoTemp.propiedades, cont);
-        }
-        else if (nombreComando == "mount")
-        {
-            mount *discoM = new mount();
-            discoM->ejecMount(nombreComando, comandoTemp.propiedades, listaDiscos);
-            discoM->ejecutarReporteMount(listaDiscos);
-        }
-        else if (nombreComando == "umount")
-        {
-            umount *discoU = new umount();
-            discoU->ejecUmount(nombreComando, comandoTemp.propiedades, listaDiscos);
-        }
-        else if (nombreComando == "mkfs")
-        {
-            mkfs *discoM = new mkfs();
-            discoM->ejecMkfs(nombreComando, comandoTemp.propiedades, listaDiscos);
-        }
-        else if (nombreComando == "exec")
-        {
-            exec *discoE = new exec();
-            discoE->ejecExec(nombreComando, comandoTemp.propiedades, listaDiscos);
-        }
-        else if (nombreComando == "rep")
-        {
-            rep *discoR = new rep();
-            discoR->ejecRep(nombreComando, comandoTemp.propiedades, listaDiscos);
-        }
-        else if (nombreComando == "pause")
-        {
-            printf("Presione una tecla para continuar... \n");
-            cin.get();
+            else if (nombreComando == "rmdisk")
+            {
+                rmdisk *discoaRem = new rmdisk();
+                discoaRem->ejecRmdisk(nombreComando, comandoTemp.propiedades, cont);
+            }
+            else if (nombreComando == "fdisk")
+            {
+                fdisk *discoF = new fdisk();
+                discoF->ejecFdisk(nombreComando, comandoTemp.propiedades, cont);
+            }
+            else if (nombreComando == "mount")
+            {
+                mount *discoM = new mount();
+                discoM->ejecMount(nombreComando, comandoTemp.propiedades, listaDiscos);
+                discoM->ejecutarReporteMount(listaDiscos);
+            }
+            else if (nombreComando == "umount")
+            {
+                umount *discoU = new umount();
+                discoU->ejecUmount(nombreComando, comandoTemp.propiedades, listaDiscos);
+                mount *discoM = new mount();
+                discoM->ejecutarReporteMount(listaDiscos);
+            }
+            else if (nombreComando == "mkfs")
+            {
+                mkfs *discoM = new mkfs();
+                discoM->ejecMkfs(nombreComando, comandoTemp.propiedades, listaDiscos);
+            }
+            else if (nombreComando == "exec")
+            {
+                exec *discoE = new exec();
+                discoE->ejecExec(comandoTemp.propiedades, listaDiscos);
+            }
+            else if (nombreComando == "rep")
+            {
+                //rep *discoR = new rep();
+                //discoR->ejecRep(nombreComando, comandoTemp.propiedades, listaDiscos);
+            }
+            else if (nombreComando == "pause")
+            {
+
+                printf("Pause Presione una tecla para continuar... \n");
+                cin.get();
+            }
         }
     }
 }
@@ -180,3 +208,4 @@ vector<string> manejador::split(string str, char pattern)
 
     return results;
 }
+

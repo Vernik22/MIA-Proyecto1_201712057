@@ -15,7 +15,7 @@ exec::exec()
 {
 }
 
-bool exec::ejecExec(string nombreComando, Propiedad propiedades[], vector<DISCO> &listaDiscos)
+bool exec::ejecExec( Propiedad propiedades[], vector<DISCO> &listaDiscos)
 {
     try
     {
@@ -77,9 +77,10 @@ void exec::ejecutarComandoExec(exec *disco, vector<DISCO> &listaDiscos)
         while (!f.eof()) //mientras no sea el final del archivo
         {
             getline(f, data);
-            cout << data << endl;
+            //cout << data << endl;
+            leer->leerTexto(data, listaDiscos);
         }
         f.close(); //cerramos el archivo
-        leer->leerTexto(data, listaDiscos);
+        
     }
 }
