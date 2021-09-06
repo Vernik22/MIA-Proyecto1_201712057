@@ -92,8 +92,8 @@ void mkfs::ejecutarComandoMkfs(mkfs *disco, vector<DISCO> &listaDiscos)
     bool dValido = idValido(disco->id, listaDiscos);
     if (dValido)
     {
-        char NoParticion = disco->id[2];
-        char IdDisco = disco->id[3];
+        char NoParticion = disco->id[3];
+        char IdDisco = disco->id[2];
         string pathDisco = "";
         string nombreParticion = "";
         string nombreDisco = "";
@@ -136,6 +136,7 @@ void mkfs::ejecutarComandoMkfs(mkfs *disco, vector<DISCO> &listaDiscos)
         //n
         int noEstructuras = ((sizeParticion - 2 * sizeof(SB)) / (27 + sizeof(AVD) + sizeof(DD) + 5 * sizeof(Inodo) + 20 * sizeof(Bloque) + sizeof(JOURNAL)));
 
+        
         //No Estructuras
         int cantidadAvd = noEstructuras;
         int cantidadDd = noEstructuras;
@@ -197,6 +198,7 @@ void mkfs::ejecutarComandoMkfs(mkfs *disco, vector<DISCO> &listaDiscos)
         //Escribir en Particion
         FILE *arch;
         arch = fopen(pathDisco.c_str(), "rb+");
+        
         if (arch == NULL)
         {
             cout << "Error! El disco no existe F\n"; //si da null es porque no se encontro el archivo
@@ -211,12 +213,14 @@ void mkfs::ejecutarComandoMkfs(mkfs *disco, vector<DISCO> &listaDiscos)
 
             char buff;
             buff = '\0';
-
+            cout<< cantidadAvd<<endl;
+            
             for (int j = 0; j < cantidadAvd; j++)
             {
                 fwrite(&buff, sizeof(buff), 1, arch);
                 fseek(arch, InicioBitmapAvd + j, SEEK_SET);
             }
+            cout<< "sale del for para llenar de ceros"<<endl;
             //escribir arbol de directorios
             fseek(arch, inicioAvd, SEEK_SET);
 

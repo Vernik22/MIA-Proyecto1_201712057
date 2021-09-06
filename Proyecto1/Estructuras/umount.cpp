@@ -67,25 +67,27 @@ void umount::ejecutarComandoUmount(umount *disco, vector<DISCO> &listaDiscos)
     {
         DISCO dis;
         dis = listaDiscos[i];
-        cout << dis.id;
-        cout << idDisco << endl;
+        //cout << dis.id<<endl;
+        //cout << idDisco << endl;
         
         if (dis.id == idDisco)
         {
             for (int j = 0; j < 100; j++)
             {
+                
                 MOUNT mountTemp = dis.Particiones[j];
                 if (mountTemp.id == disco->id)
                 {
                     eliminada = true;
-                    printf("Encontrada: %s \n", noParticion);
-                    mountTemp.id = noParticion;
+                    //printf("Encontrada: %s \n", noParticion);
+                    cout<<"Encontrada: "<<noParticion<<endl;
+                    mountTemp.id = to_string(j);
                     mountTemp.NombreParticion = "";
                     mountTemp.estado = '0';
                     mountTemp.EstadoMKS = '0';
                     dis.Particiones[j] = mountTemp;
                     printf("Particion Desmontada ");
-                    cout << disco->id;
+                    cout << disco->id<<endl;
                     break;
                 }
             }
